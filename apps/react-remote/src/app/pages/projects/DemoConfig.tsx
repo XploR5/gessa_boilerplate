@@ -17,7 +17,7 @@ const ProjectConfig: IPageConfig = {
       element: <Navigate to={'project/:projectId/:menuId/:subMenuId/demo'} />,
     },
     {
-      path: 'project/:projectId/:menuId/:subMenuId/demo',
+      path: 'project/:projectId/forms',
       element: (
         <Suspense fallback={<>...</>}>
           <ChartDetails />

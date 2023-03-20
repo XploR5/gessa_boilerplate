@@ -1,5 +1,8 @@
 import { CssBaseline } from '@mui/material';
+import FormCreate from './components/FormCreate';
 import { StyledEngineProvider } from '@mui/material/styles';
+import Home from './components/Home';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { HashRouter, Outlet } from 'react-router-dom';
 import {
@@ -37,9 +40,23 @@ export function App(props: any) {
                     page_id={JSON.parse(JSON.stringify(props)).pageId}
                   /> */}
 
-                  <Intermediate
+                  {/* <Intermediate
                     page_id={JSON.parse(JSON.stringify(props)).pageId}
-                  />
+                  /> */}
+                  <FormCreate />
+                  {/* <Router>
+                    <Routes>
+                      <Route
+                        path="/project/:projectId/test1"
+                        element={<FormCreate />}
+                      />
+                      <Route
+                        path="/project/:projectId/Home"
+                        element={<Home />}
+                      />
+                    </Routes>
+                  </Router> */}
+
                   {/* <LayoutWrapper /> */}
                 </StyledEngineProvider>
                 {/* </HashRouter> */}

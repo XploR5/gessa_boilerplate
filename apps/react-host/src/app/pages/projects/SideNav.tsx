@@ -14,10 +14,13 @@ import {
 } from './store/sortedMenuSlice';
 
 export interface ISideNav {
+  setPage: any;
+  page: any;
   menuList: any;
   selectedMenuName: string;
   setSelectedMenuName: (data: any) => any;
 }
+
 const SideNav = (props: ISideNav) => {
   const theme = useTheme();
   const themesChart = themes.default;
@@ -31,6 +34,7 @@ const SideNav = (props: ISideNav) => {
   const [selectedMenu, setSelectedMenu] = useState<string>(
     params.menuId || props.selectedMenuName
   );
+
 
   useEffect(() => {
     if (sortedMenus && sortedMenus.length > 0) {
@@ -58,64 +62,69 @@ const SideNav = (props: ISideNav) => {
       }}
     >
       <Stack direction="column">
-        {appMenu &&
+        {/* {appMenu &&
           appMenu.length > 0 &&
           appMenu.map((item: any, index: any) => {
-            return (
-              <div
-                key={generateRandomString()}
-                style={{
-                  minWidth: '50px',
-                  minHeight: '50px',
+            return ( */}
+        <div
+          key={generateRandomString()}
+          style={{
+            minWidth: '50px',
+            minHeight: '50px',
 
-                  width: '50px',
-                  height: '50px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: '10px',
-                  borderRadius: '4px',
-                  background:
-                    selectedMenu === item.data.name
-                      ? themesChart?.palette?.primary?.pri300Main
-                      : themesChart?.palette?.background?.bacopWhite,
-                  color:
-                    selectedMenu === item.data.name
-                      ? theme?.palette?.primary?.main
-                      : theme?.palette?.text?.main,
-                }}
-                onClick={() => {
-                  setClicked(isClicked !== index ? index : -1);
-                  setSelectedMenu(item.data.name);
+            width: '50px',
+            height: '50px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '10px',
+            borderRadius: '4px',
+            background: 'green',
+            color: theme?.palette?.primary?.main,
+          }}
+          onClick={() => {
+            console.log('clicked');
+            props.setPage(!props.page);
+          }}
+        >
+          <IconComponent
+            name={'Menu-Info'}
+            size={30}
+            label={'Menu-Info'}
+            color={'red'}
+          />
+        </div>
+        <div
+          key={generateRandomString()}
+          style={{
+            minWidth: '50px',
+            minHeight: '50px',
 
-                  dispatch(setActiveMenuName(item.data.name));
-                  if (item && item.child && item.child.length > 0) {
-                    dispatch(setPageId(''));
-                  } else {
-                    dispatch(setPageId(item.data.pageId));
-                  }
-                  props.setSelectedMenuName(item.data.name);
-                  navigate(
-                    `/project/${params.projectId}/${
-                      item.data.name || params.menuId
-                    }`
-                  );
-                }}
-              >
-                <IconComponent
-                  name={item.data.icon.trim() || 'Menu-Info'}
-                  size={30}
-                  label={item.data.name}
-                  color={
-                    selectedMenu === item.data.name
-                      ? themesChart?.palette?.background?.bacopWhite
-                      : themesChart?.palette?.text?.tex300Main
-                  }
-                />
-              </div>
-              // </Link>
-            );
-          })}
+            width: '50px',
+            height: '50px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '10px',
+            borderRadius: '4px',
+            background: 'red',
+            color: theme?.palette?.primary?.main,
+          }}
+          onClick={() => {
+            console.log('clicked');
+            props.setPage(!props.page);
+          }}
+        >
+          <IconComponent
+            name={'Menu-Info'}
+            size={30}
+            label={'Menu-Info'}
+            color={'blue'}
+          />
+        </div>
+        {/* </Link>
+           );
+           })} */}
       </Stack>
     </Box>
   );

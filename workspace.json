@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "forms": "apps/forms",
+    "forms-e2e": "apps/forms-e2e",
     "react-host": "apps/react-host",
     "react-host-e2e": "apps/react-host-e2e",
     "react-remote": "apps/react-remote",

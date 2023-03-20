@@ -34,11 +34,13 @@ import {
 import { IRootState } from 'apps/react-host/src/store';
 import keycloak from 'apps/react-host/src/keycloak/keycloak';
 import themes from 'apps/react-host/src/theme';
+import AppMain from '../../layouts/AppMain/AppMain';
 
 export function Project() {
   const params: any = useParams();
   const theme = themes.default;
   const rootState = useSelector((state: IRootState) => state);
+  const [page,setPage] = useState(false)
 
   const [widgetData, setWidgetData] = useState([]);
   const sortedMenus = selectAllSortedMenuById(rootState) || [];
@@ -102,29 +104,29 @@ export function Project() {
         page: 0,
         size: 100,
       };
-      // dispatch(getAppMenu(menuParams))
-      //   .then((res: any) => {
-      //     if (res && res.payload && res.payload.data) {
-      //       const sortedArr = JSON.parse(JSON.stringify(res.payload.data));
-      //       if (sortedArr && sortedArr[0].data) {
-      //         if (sortedArr[0].child && sortedArr[0].child.length > 0) {
-      //           navigate(
-      //             `/project/${params.projectId}/${params.menuId || sortedArr[0].data.name
-      //             }/${params.subMenuId || sortedArr[0].child[0].name}`
-      //           );
-      //         } else {
-      //           navigate(
-      //             `/project/${params.projectId}/${params.menuId || sortedArr[0].data.name
-      //             }`
-      //           );
-      //         }
-      //       }
-      //     }
-      //     // setSelectedMenu('page2');
-      //   })
-      //   .catch((reason: any) => {
-      //     //  Todod :
-      //   });
+      dispatch(getAppMenu(menuParams))
+        .then((res: any) => {
+          if (res && res.payload && res.payload.data) {
+            const sortedArr = JSON.parse(JSON.stringify(res.payload.data));
+            if (sortedArr && sortedArr[0].data) {
+              if (sortedArr[0].child && sortedArr[0].child.length > 0) {
+                navigate(
+                  `/project/${params.projectId}/${params.menuId || sortedArr[0].data.name
+                  }/${params.subMenuId || sortedArr[0].child[0].name}`
+                );
+              } else {
+                navigate(
+                  `/project/${params.projectId}/${params.menuId || sortedArr[0].data.name
+                  }`
+                );
+              }
+            }
+          }
+          // setSelectedMenu('page2');
+        })
+        .catch((reason: any) => {
+          //  Todod :
+        });
     }
   }, []);
 
@@ -206,6 +208,8 @@ export function Project() {
         >
           <Stack direction="column">
             <SideNav
+              page={page}
+              setPage={setPage}
               menuList={sortedData}
               selectedMenuName={selectedMenu}
               setSelectedMenuName={(data: any) => {
@@ -214,14 +218,16 @@ export function Project() {
             />
           </Stack>
         </Box>
-        <Box
+        {/* <Box
           sx={{
             flexGrow: 1,
             overflow: 'hidden',
+            color: 'orange',
           }}
         >
           <AppLayout />
-        </Box>
+        </Box> */}
+        {page && <AppMain pageId={'asa'} />}
       </Stack>
     </Box>
   );

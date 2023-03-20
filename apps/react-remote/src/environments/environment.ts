@@ -4,7 +4,7 @@
 export const environment = {
   production: false,
   NX_KEYCLOCK_AUTH_SERVER_URL: 'https://auth.qa.gessa.io/',
-  NX_KEYCLOCK_DATABASE: 'gessa-studio',
+  NX_KEYCLOCK_DATABASE: '6401d3c67dab9ca0bd7091e4',
   NX_KEYCLOCK_CLIENT_ID: 'masterClient',
   NX_KEYCLOCK_SECRET_KEY: 'v52XsV7Hn3XRuf1ZJJlmmAekRJL1nDR9',
   NX_KEYCLOK_LOGOUT_BASE_URL: 'http://localhost:8000/',

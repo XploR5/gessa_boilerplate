@@ -25,6 +25,7 @@ module.exports = (config, context) => {
       remotes: {
         //TODO: Need fix this issue later
         ViewPageApp: `ViewPageApp@//http://localhost:8001/remoteEntry.js`,
+        forms: `forms@//http://localhost:8000/remoteEntry.js'`,
       },
       exposes: {},
       shared: {

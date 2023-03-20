@@ -1,0 +1,116 @@
+{
+  "root": "apps/forms",
+  "sourceRoot": "apps/forms/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/forms",
+        "index": "apps/forms/src/index.html",
+        "baseHref": "/",
+        "main": "apps/forms/src/main.tsx",
+        "polyfills": "apps/forms/src/polyfills.ts",
+        "tsConfig": "apps/forms/tsconfig.app.json",
+        "assets": ["apps/forms/src/favicon.ico"],
+        "styles": [
+          "node_modules/@gessa/icons-material/lib/assets/icomoon/style.css"
+        ],
+        "scripts": [],
+        "webpackConfigOld": "@nrwl/react/plugins/webpack",
+        "webpackConfig": "apps/forms/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/forms/src/environments/environment.ts",
+              "with": "apps/forms/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        },
+        "staging": {
+          "fileReplacements": [
+            {
+              "replace": "apps/forms/src/environments/environment.ts",
+              "with": "apps/forms/src/environments/environment.stage.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        },
+        "development": {
+          "fileReplacements": [
+            {
+              "replace": "apps/forms/src/environments/environment.ts",
+              "with": "apps/forms/src/environments/environment.dev.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        },
+        "local": {
+          "fileReplacements": [
+            {
+              "replace": "apps/forms/src/environments/environment.ts",
+              "with": "apps/forms/src/environments/environment.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "forms:build",
+        "hmr": true,
+        "port": 8005
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "forms:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/forms/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/forms"],
+      "options": {
+        "jestConfig": "apps/forms/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

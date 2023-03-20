@@ -1,0 +1,100 @@
+import React from 'react';
+
+function loadComponent(scope, module) {
+  return async () => {
+    // eslint-disable-next-line no-undef
+    await __webpack_init_sharing__('default');
+
+    const container = window[scope]; // or get the container somewhere else
+    // eslint-disable-next-line no-undef
+    await container.init(__webpack_share_scopes__.default);
+    const factory = await window[scope].get(module);
+    const Module = factory();
+    return Module;
+  };
+}
+
+const useDynamicScript = (args) => {
+  const [ready, setReady] = React.useState(false);
+  const [failed, setFailed] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!args.url) {
+      return;
+    }
+
+    const element = document.createElement('script');
+
+    element.src = args.url;
+    element.type = 'text/javascript';
+    element.async = true;
+
+    setReady(false);
+    setFailed(false);
+
+    element.onload = () => {
+      console.log(`Dynamic Script Loaded: ${args.url}`);
+      setReady(true);
+    };
+
+    element.onerror = () => {
+      console.error(`Dynamic Script Error: ${args.url}`);
+      setReady(false);
+      setFailed(true);
+    };
+
+    document.head.appendChild(element);
+
+    return () => {
+      console.log(`Dynamic Script Removed: ${args.url}`);
+      document.head.removeChild(element);
+    };
+  }, [args.url]);
+
+  return {
+    ready,
+    failed,
+  };
+};
+
+const loadMicrofronend = (url, scope, module) => {
+  return new Promise((resolve, reject) => {
+    const element = document.createElement('script');
+
+    element.src = url;
+    element.type = 'text/javascript';
+    element.async = true;
+
+    element.onload = async () => {
+      console.log(`Dynamic Script Loaded: ${url}`);
+      resolve(window[scope]);
+      //   element.parentElement.removeChild(element);
+      //   const Component = (await loadComponent(scope, module)()).default;
+      //   // console.log('Component', Component.default);
+
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // const Component = require('flowChartApp/FlowChartSlice');
+    };
+
+    element.onerror = () => {
+      console.error(`Dynamic Script Error: ${url}`);
+      //   element.parentElement.removeChild(element);
+
+      reject(`Dynamic Script Error: ${url}`);
+    };
+
+    document.head.appendChild(element);
+  });
+};
+
+// export default MicrofrontendFile;
+[
+  {
+    url: 'http://localhost:4201/remoteEntry.js',
+    scope: 'flowChartApp',
+  },
+].forEach(async (mf) => {
+  console.log('MF', mf);
+  let d = await loadMicrofronend(mf.url, mf.scope);
+  console.log('D', d);
+});

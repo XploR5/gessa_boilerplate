@@ -1,11 +1,14 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router';
 import { IPageConfig } from '../../types/pageConfig';
+// import AppMain from '../layouts/AppMain/AppMain';
 import Project from './projects/Project';
 
 const ProjectWrapper = lazy(
   () => import('./projects/component/ProjectWrapper')
 );
+
+const Test = lazy(() => import('../layouts/AppMain/AppMain'));
 
 const MyRoutes = {
   routes: [
@@ -113,6 +116,15 @@ const MyRoutes = {
       element: (
         <Suspense fallback={<>...</>}>
           <ProjectWrapper />
+        </Suspense>
+      ),
+      children: [],
+    },
+    {
+      path: 'project/:projectId/forms/',
+      element: (
+        <Suspense fallback={<>...</>}>
+          <Test pageId={'asa'} />
         </Suspense>
       ),
       children: [],
