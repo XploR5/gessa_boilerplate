@@ -94,34 +94,6 @@ const SideNav = (props: ISideNav) => {
             color={'red'}
           />
         </div>
-        <div
-          key={generateRandomString()}
-          style={{
-            minWidth: '50px',
-            minHeight: '50px',
-
-            width: '50px',
-            height: '50px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: '10px',
-            borderRadius: '4px',
-            background: 'red',
-            color: theme?.palette?.primary?.main,
-          }}
-          onClick={() => {
-            console.log('clicked');
-            props.setPage(!props.page);
-          }}
-        >
-          <IconComponent
-            name={'Menu-Info'}
-            size={30}
-            label={'Menu-Info'}
-            color={'blue'}
-          />
-        </div>
         {/* </Link>
            );
            })} */}

@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
+import MultipleChoice from './MultipleChoice';
+import SingleChoice from './SingleChoice';
+import Date from './Date';
+import Text from './Text';
+import NetPromoterScale from './NetPromoterScale';
+import Rating from './Rating';
+import FileUpload from './FileUpload';
 
 const initialData = {
   availableQuestions: [
@@ -20,11 +26,11 @@ let count = 1;
 const FormCreate = () => {
   const [data, setData] = useState<any>(initialData);
 
-  const onDragEnd = (result:any) => {
+  const onDragEnd = (result: any) => {
     const { source, destination } = result;
     if (!destination) return;
     if (source.droppableId === destination.droppableId) {
-      const list:any = data[source.droppableId];
+      const list: any = data[source.droppableId];
       const [removed] = list.splice(source.index, 1);
       list.splice(destination.index, 0, removed);
       setData({ ...data, [source.droppableId]: list });
@@ -111,7 +117,7 @@ const FormCreate = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <div style={{ display: 'flex' }}>
           <Droppable droppableId="availableQuestions">
-            {(provided:any, snapshot:any) => (
+            {(provided: any, snapshot: any) => (
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
@@ -124,13 +130,13 @@ const FormCreate = () => {
                 }}
               >
                 <h4>List of Available Question Types</h4>
-                {data.availableQuestions.map((item:any, index:any) => (
+                {data.availableQuestions.map((item: any, index: any) => (
                   <Draggable
                     key={item.id + '1'}
                     draggableId={item.id + '1'}
                     index={index}
                   >
-                    {(provided:any, snapshot:any) => (
+                    {(provided: any, snapshot: any) => (
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
@@ -157,7 +163,7 @@ const FormCreate = () => {
             )}
           </Droppable>
           <Droppable droppableId="actualForm">
-            {(provided:any, snapshot:any) => (
+            {(provided: any, snapshot: any) => (
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
@@ -169,9 +175,9 @@ const FormCreate = () => {
                 }}
               >
                 <h4>Actual Form</h4>
-                {data.actualForm.map((item:any, index:any) => (
+                {data.actualForm.map((item: any, index: any) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided:any, snapshot:any) => (
+                    {(provided: any, snapshot: any) => (
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
@@ -189,6 +195,15 @@ const FormCreate = () => {
                         }}
                       >
                         {item.content}
+                        {item.content === 'Single Choice' && <SingleChoice />}
+                        {item.content === 'Date' && <Date />}
+                        {item.content === 'Text' && <Text />}
+                        {item.content === 'File Upload' && <FileUpload />}
+                        {item.content === 'Rating' && <Rating maxRating={5} />}
+                        {item.content === 'Net Promotor Scale' && <NetPromoterScale />}
+                        {item.content === 'Multiple Choice' && (
+                          <MultipleChoice />
+                        )}
                       </div>
                     )}
                   </Draggable>

@@ -43,7 +43,7 @@ export function App(props: any) {
                   {/* <Intermediate
                     page_id={JSON.parse(JSON.stringify(props)).pageId}
                   /> */}
-                  <FormCreate />
+                  <Home/>
                   {/* <Router>
                     <Routes>
                       <Route
